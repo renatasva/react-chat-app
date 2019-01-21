@@ -10,7 +10,6 @@ import {
   Icon
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { throws } from "assert";
 
 class Login extends Component {
   state = {
