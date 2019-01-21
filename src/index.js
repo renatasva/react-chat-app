@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import Login from './components/Auth/Login';
+import Login from './components/Auth/Login.jsx';
 import Register from './components/Auth/Register.jsx';
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css';
