@@ -1,10 +1,8 @@
-import React from 'react';
+import React from "react";
 
 class ColorPanel extends React.Component {
   render() {
-    return (
-      <div>ColorPanel</div>
-    )
+    return <div>ColorPanel</div>;
   }
 }
 

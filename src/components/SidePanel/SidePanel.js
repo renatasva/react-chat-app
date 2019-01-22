@@ -1,10 +1,9 @@
-import React from 'react';
+
+import React from "react";
 
 class SidePanel extends React.Component {
   render() {
-    return (
-      <div>SidePanel</div>
-    )
+    return <div>SidePanel</div>;
   }
 }
 
