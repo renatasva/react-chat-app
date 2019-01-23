@@ -25,7 +25,7 @@ import { createStore } from "redux";
 import { Provider, connect } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers";
-import { setUser } from "./actions";
+import { setUser, clearUser } from "./actions";
 
 //to create our global state we create a store variable and this will store the return value
 //from executing the createStore function and for that we need to pass an empty function for now
@@ -40,6 +40,9 @@ class Root extends React.Component {
         // console.log(user);
         this.props.setUser(user);
         this.props.history.push("/");
+      } else {
+        this.props.history.push('/login');
+        this.props.clearUser();
       }
     });
   }
@@ -64,7 +67,7 @@ const mapStateFromProps = state => ({
 const RootWithAuth = withRouter(
   connect(
     mapStateFromProps,
-    { setUser }
+    { setUser, clearUser }
   )(Root)
 );
 

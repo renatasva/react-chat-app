@@ -1,16 +1,17 @@
 import React  from 'react';
 import { Grid } from "semantic-ui-react";
 import './App.css';
+import { connect } from 'react-redux';
 
 import ColorPanel from "./ColorPanel/ColorPanel";
 import SidePanel from "./SidePanel/SidePanel";
 import Messages from "./Messages/Messages";
 import MetaPanel from "./MetaPanel/MetaPanel";
 
-const App = () => (
+const App = ({ currentUser }) => (
   <Grid columns="equal" className="app" style={{ background: "#eee" }}>
     <ColorPanel />
-    <SidePanel />
+    <SidePanel currentUser={currentUser} />
 
     <Grid.Column style={{ marginLeft: 320 }}>
       <Messages />
@@ -22,4 +23,14 @@ const App = () => (
   </Grid>
 );
 
-export default App;
+
+//passing the global state via props and using the connect function only in App.js (App component)
+//will provide very conveniet way to pass state down to all of the components that will need to access
+//information such as the user data (name, etc).
+
+//this function will give us an object with all of the values that we need from our state
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(App);
