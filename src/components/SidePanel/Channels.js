@@ -19,6 +19,10 @@ class Channels extends Component {
     this.addListeners();
   };
 
+  componentWillUnmount() {
+    this.removeListeners();
+  };
+
   addListeners = () => {
     let loadedChannels = [];
     this.state.channelsRef.on('child_added', snap => {
@@ -26,6 +30,10 @@ class Channels extends Component {
       this.setState({ channels: loadedChannels }, () => this.setFirstChannel());
     });
   };
+
+  removeListeners = () => {
+    this.state.channelsRef.off();
+  }
 
   //if there is any channels, we will display the first one on the screen
   setFirstChannel = () => {
@@ -41,7 +49,7 @@ class Channels extends Component {
     const { channelName, channelDetails, channelsRef, user } = this.state;
 
     const key = channelsRef.push().key;
-    
+
     const newChannel = {
       id: key,
       name: channelName,
@@ -64,7 +72,7 @@ class Channels extends Component {
         console.error(err);
       })
   }
-  
+
   handleSubmit = event => {
     event.preventDefault();
     if (this.isFormValid(this.state)) {
@@ -105,10 +113,10 @@ class Channels extends Component {
 
   closeModal = () => this.setState({ modal: false });
 
-  render() { 
+  render() {
     const { channels, modal } = this.state;
 
-    return ( 
+    return (
       <React.Fragment>
         <Menu.Menu style={{ paddingBottom: '2em' }}>
         <Menu.Item>
@@ -157,6 +165,6 @@ class Channels extends Component {
      );
   }
 }
- 
+
 //with connect keyword - we are able to put channel on a global state
 export default connect(null, { setCurrentChannel })(Channels);
