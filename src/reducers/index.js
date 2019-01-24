@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import * as actionTypes from "../actions/types";
-import { setCurrentChannel } from '../actions/index';
+// import { setCurrentChannel } from '../actions/index';
 
 const initialUserState = {
   currentUser: null,

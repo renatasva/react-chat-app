@@ -5,7 +5,7 @@ class MessagesHeader extends React.Component {
   render() {
     return (
       <Segment clearing>
-        // Channel Title
+        {/* Channel title */}
         <Header fluid="true" as="h2" floated="left" style={{ marginBottom: 0 }}>
           <span>
           Channel
@@ -13,7 +13,7 @@ class MessagesHeader extends React.Component {
           </span>
           <Header.Subheader>2 Users</Header.Subheader>
         </Header>
-        // Search input
+        {/* Search input */}
         <Header floated="right">
           <Input
             size="mini"

@@ -17,8 +17,9 @@ const App = ({ currentUser, currentChannel }) => (
 
     <Grid.Column style={{ marginLeft: 320 }}>
       <Messages
-        key={currentChannel currentChannel.id}
+        key={currentChannel && currentChannel.id}
         currentChannel={currentChannel}
+        currentUser={currentUser}
       />
     </Grid.Column>
 
@@ -35,7 +36,7 @@ const App = ({ currentUser, currentChannel }) => (
 
 //this function will give us an object with all of the values that we need from our state
 const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
   currentChannel: state.channel.currentChannel
 })
 
