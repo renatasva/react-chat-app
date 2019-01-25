@@ -73,6 +73,14 @@ class MessageForm extends React.Component {
     }
   };
 
+  getPath = () => {
+    if (this.props.isPrivateChannel) {
+      return `chat/private-${this.state.channel.id}`;
+    } else {
+      return "chat/public";
+    }
+  };
+
   //to upload an image and post it as a message
   uploadFile = (file, metadata) => {
     const pathToUpload = this.state.channel.id;
