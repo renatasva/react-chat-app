@@ -47,12 +47,12 @@ class MessageForm extends React.Component {
   };
 
   sendMessage = () => {
-    const { messagesRef } = this.props;
+    const { getMessagesRef } = this.props;
     const { message, channel } = this.state;
 
     if (message) {
       this.setState({ loading: true });
-      messagesRef
+      getMessagesRef()
         .child(channel.id)
         .push()
         .set(this.createMessage())
@@ -73,6 +73,7 @@ class MessageForm extends React.Component {
     }
   };
 
+// function witch check witch path to use private or public
   getPath = () => {
     if (this.props.isPrivateChannel) {
       return `chat/private-${this.state.channel.id}`;
@@ -85,9 +86,9 @@ class MessageForm extends React.Component {
   uploadFile = (file, metadata) => {
     const pathToUpload = this.state.channel.id;
     //we get our messages ref from props
-    const ref = this.props.messagesRef;
+    const ref = this.props.getMessagesRef();
     //we user uuidv4 function to create a random string
-    const filePath = `chat/public/${uuidv4()}.jpg`;
+    const filePath = `${this.getPath()}/${uuidv4()}.jpg`;
 
     this.setState(
       {

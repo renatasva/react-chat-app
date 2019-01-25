@@ -11,7 +11,8 @@ class MessagesHeader extends React.Component {
         <Header fluid="true" as="h2" floated="left" style={{ marginBottom: 0 }}>
           <span>
           {channelName}<span> </span>
-          <Icon name={"star outline"} color="black" />
+          {/* checks if it's not a PrivateChannel, if it is a public chalen only then we show a star icon */}
+          {!isPrivateChannel && <Icon name={"star outline"} color="black" />}
           </span>
           <Header.Subheader>{numUniqueUsers}</Header.Subheader>
         </Header>
@@ -32,3 +33,4 @@ class MessagesHeader extends React.Component {
 }
 
 export default MessagesHeader;
+

@@ -9,6 +9,7 @@ import Message from './Message';
 class Messages extends React.Component {
   state = {
     privateChannel: this.props.isPrivateChannel,
+    //references a new collection within our database called privateMessages
     privateMessagesRef: firebase.database().ref("privateMessages"),
     messagesRef: firebase.database().ref('messages'),
     messages: [],
@@ -35,7 +36,8 @@ class Messages extends React.Component {
 
   addMessageListener = channelId => {
     let loadedMessages = [];
-    this.state.messagesRef.child(channelId).on('child_added', snap => {
+    const ref = this.getMessagesRef();
+    ref.child(channelId).on('child_added', snap => {
       loadedMessages.push(snap.val());
       this.setState({
         messages: loadedMessages,
@@ -45,6 +47,7 @@ class Messages extends React.Component {
     });
   };
 
+  //witch ref we should use when sending a message
   getMessagesRef = () => {
     const { messagesRef, privateMessagesRef, privateChannel } = this.state;
     return privateChannel ? privateMessagesRef : messagesRef;
@@ -96,10 +99,10 @@ class Messages extends React.Component {
     this.setState({ numUniqueUsers });
   };
 
-  displayMessages = messages => 
-    messages.length > 0 && 
+  displayMessages = messages =>
+    messages.length > 0 &&
     messages.map(message => (
-      <Message 
+      <Message
         key={message.timestamp}
         message={message}
         user={this.state.user}
@@ -113,10 +116,10 @@ class Messages extends React.Component {
   };
 
   render() {
-    const { messagesRef, messages, channel, user, numUniqueUsers, searchTerm, searchResults, searchLoading, privateChannel } = this.state;
+    const { messagesRef, messages, channel, user, numUniqueUsers, searchTerm, searchResults, searchLoading, isPrivateChannel } = this.state;
     return (
       <React.Fragment>
-        <MessagesHeader 
+        <MessagesHeader
         //we pass down the channel name property to messages header, by passing the channel that we have within our messages state
           channelName={this.displayChannelName(channel)}
           numUniqueUsers={numUniqueUsers}
@@ -137,7 +140,7 @@ class Messages extends React.Component {
           messagesRef={messagesRef}
           currentChannel={channel}
           currentUser={user}
-          isPrivateChannel={privateChannel}
+          isPrivateChannel={isPrivateChannel}
           getMessagesRef={this.getMessagesRef}
         />
       </React.Fragment>
