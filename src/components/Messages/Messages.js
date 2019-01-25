@@ -12,8 +12,8 @@ class Messages extends React.Component {
     messages: [],
     messagesLoading: true,
     channel: this.props.currentChannel,
-    user: this.props.currentUser
-    // loading: false
+    user: this.props.currentUser,
+    numUniqueUsers: ""
   }
 
   componentDidMount() {
@@ -36,7 +36,27 @@ class Messages extends React.Component {
         messages: loadedMessages,
         messagesLoading: false
       });
+      this.countUniqueUsers(loadedMessages);
     });
+  };
+
+  //takes a messages array
+  countUniqueUsers = messages => {
+    //on this messages array we use deruce method, that allows us to get accumulated value for certain type of operation.
+    const uniqueUsers = messages.reduce((acc, message) => {
+      //we check if accumulator array includes the value of message.user.name
+      if (!acc.includes(message.user.name)) {
+        //if it doesn't include, we add it to out accumulator with push method
+        acc.push(message.user.name);
+      }
+      //we return the array off accumulated names
+      return acc;
+    }, []);
+    //we check if there is one or more users
+    const plural = uniqueUsers.length > 1 || uniqueUsers.length === 0;
+    //and depending of if it's plural or not we can display user or users
+    const numUniqueUsers = `${uniqueUsers.length} user${plural ? "s" : "" }`;
+    this.setState({ numUniqueUsers });
   };
 
   displayMessages = messages => 
@@ -49,11 +69,17 @@ class Messages extends React.Component {
       />
     ));
 
+  displayChannelName = channel => ( channel ? `#${channel.name}` : "");
+
   render() {
-    const { messagesRef, messages, channel, user } = this.state;
+    const { messagesRef, messages, channel, user, numUniqueUsers } = this.state;
     return (
       <React.Fragment>
-        <MessagesHeader />
+        <MessagesHeader 
+        //we pass down the channel name property to messages header, by passing the channel that we have within our messages state
+          channelName={this.displayChannelName(channel)}
+          numUniqueUsers={numUniqueUsers}
+        />
 
         <Segment>
           <Comment.Group className="messages">
