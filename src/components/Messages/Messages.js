@@ -130,8 +130,8 @@ class Messages extends React.Component {
       this.countUniqueUsers(loadedMessages);
       this.countUserPosts(loadedMessages);
     });
-  };
   this.addToListeners(channelId, ref, "child_added");
+  };
 
 
   addUserStarsListener = (channelId, userId) => {
