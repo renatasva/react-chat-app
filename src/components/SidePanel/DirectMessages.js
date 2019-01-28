@@ -23,6 +23,18 @@ class DirectMessages extends React.Component {
     }
   }
 
+  //when our component unmounts we need to remove listeners
+  //this applies in whole application as we set a lot of listeners
+  componentWillUnmount() {
+    this.removeListeners();
+  }
+
+  removeListeners = () => {
+    this.state.usersRef.off();
+    this.state.presenceRef.off();
+    this.state.connectedRef.off();
+  };
+
   addListeners = currentUserUid => {
     let loadedUsers = [];
     //we take users ref and listen for any new children added
